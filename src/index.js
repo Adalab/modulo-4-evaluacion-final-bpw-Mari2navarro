@@ -34,6 +34,22 @@ app.get("/artistas/:id", async (req, res) => {
   res.json(results);
 });
 
+app.post("/artistas", async (req, res) => {
+  const { nombre_artistico, ciudad, genero, url_spotify, foto } = req.body;
+
+  const [result] = await connection.query(
+    `INSERT INTO artistas
+    (nombre_artistico, ciudad, genero, url_spotify, foto)
+    VALUES (?, ?, ?, ?, ?)`,
+    [nombre_artistico, ciudad, genero, url_spotify, foto],
+  );
+
+  res.json({
+    success: true,
+    id: result.insertId,
+  });
+});
+
 // Comprobamos la conexión con MySQL
 connection
   .getConnection()
