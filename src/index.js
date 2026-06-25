@@ -50,6 +50,25 @@ app.post("/artistas", async (req, res) => {
   });
 });
 
+app.put("/artistas/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const { nombre_artistico, ciudad, genero, url_spotify, foto } = req.body;
+
+  await connection.query(
+    `UPDATE artistas
+     SET nombre_artistico = ?,
+         ciudad = ?,
+         genero = ?,
+         url_spotify = ?,
+         foto = ?
+     WHERE id = ?`,
+    [nombre_artistico, ciudad, genero, url_spotify, foto, id],
+  );
+
+  res.json({ success: true });
+});
+
 // Comprobamos la conexión con MySQL
 connection
   .getConnection()
