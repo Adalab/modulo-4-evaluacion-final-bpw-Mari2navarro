@@ -23,6 +23,17 @@ app.get("/artistas", async (req, res) => {
   res.json(results);
 });
 
+app.get("/artistas/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const [results] = await connection.query(
+    "SELECT * FROM artistas WHERE id = ?",
+    [id],
+  );
+
+  res.json(results);
+});
+
 // Comprobamos la conexión con MySQL
 connection
   .getConnection()
