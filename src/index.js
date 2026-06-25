@@ -9,10 +9,21 @@ app.use(express.json());
 
 const PORT = 4000;
 
+// Ruta de prueba
 app.get("/", (req, res) => {
   res.send("🚀 API Artistas Urbanas funcionando");
 });
 
+// GET todos los artistas
+app.get("/artistas", async (req, res) => {
+  // Ejecutamos la consulta SQL
+  const [results] = await connection.query("SELECT * FROM artistas");
+
+  // Enviamos los resultados en formato JSON
+  res.json(results);
+});
+
+// Comprobamos la conexión con MySQL
 connection
   .getConnection()
   .then(() => {
