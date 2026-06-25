@@ -69,6 +69,14 @@ app.put("/artistas/:id", async (req, res) => {
   res.json({ success: true });
 });
 
+app.delete("/artistas/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await connection.query("DELETE FROM artistas WHERE id = ?", [id]);
+
+  res.json({ success: true });
+});
+
 // Comprobamos la conexión con MySQL
 connection
   .getConnection()
